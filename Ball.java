@@ -1,33 +1,51 @@
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.Graphics2D;
 
-/**
- * Write a description of class Ball here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
-public class Ball
-{
-    // instance variables - replace the example below with your own
-    private int x;
+public class Ball {
+    private Dimension screenSize;
+    private Color color;
+    private Point location;
+    private int radius;
+    private int diameter;
+    private Point speed;
 
-    /**
-     * Constructor for objects of class Ball
-     */
-    public Ball()
-    {
-        // initialise instance variables
-        x = 0;
+    public Ball(Dimension screenSize) {
+        this.screenSize = screenSize;
+        radius = ((int)(Math.random()*40))+10;
+        diameter = radius * 2;
+        location = new Point(screenSize.width/2,screenSize.height/2);
+        color = new Color((float)Math.random(),(float)Math.random(),(float)Math.random());
+        speed = new Point(1 + ((int)(Math.random()*10)), 1 + ((int)(Math.random()*10)));
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    public int getDiameter() {
+        return diameter;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public Point getLocation() {
+        return location;
+    }
+
+    public Point getSpeed() {
+        return speed;
+    }
+
+    public void move() {
+        location.setLocation(location.x+speed.x,location.y+speed.y);
+        if ( (location.x < 0) || (location.x > screenSize.width-diameter) )
+            speed.x = -speed.x;
+        if ( (location.y < 0) || (location.y > screenSize.height-diameter) )
+            speed.y = -speed.y;
+    }
+
+    public void paint(Graphics2D g2d) {
+        g2d.setColor(color);
+        g2d.fillOval(location.x, location.y, diameter, diameter);
     }
 }
