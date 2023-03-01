@@ -1,33 +1,51 @@
-
+import java.awt.*;
+import javax.swing.*;
 /**
- * Write a description of class BouncingBall here.
- *
- * @author (your name)
- * @version (a version number or a date)
+ * BouncingBall produces a panel with one ball bouncing off the edges.
+ * 
+ * It uses a single instance of the Ball class to provide the bouncer.
  */
-public class BouncingBall
-{
-    // instance variables - replace the example below with your own
-    private int x;
-
-    /**
-     * Constructor for objects of class BouncingBall
+public class BouncingBall extends JPanel {
+    private final Dimension SIZE = new Dimension(600,450); // Panel size
+    private final int UPDATE_RATE = 24; // Number of refreshes per second
+    private Ball ball; // The beautiful bouncing ball
+    private Thread ballThread; // Animation thread
+    
+    /** 
+     * Constructor sets up the panel and starts its animation thread 
      */
-    public BouncingBall()
-    {
-        // initialise instance variables
-        x = 0;
+    public BouncingBall() {
+        setPreferredSize(SIZE); // Set panel size
+        ball = new Ball(SIZE); // Create a Ball object
+        // Start the ball bouncing (in its own animation thread)
+        ballThread = new Thread() {
+                public void run() {
+                    while (true) { // Execute one update step
+                        // Calculate the balls' new positions
+                        ball.move();
+                        // Refresh the display
+                        repaint(); // Callback paintComponent()
+                        // Delay so the animation's not too fast
+                        try {
+                            Thread.sleep(1000 / UPDATE_RATE);  // milliseconds
+                        } catch (InterruptedException ex) { }
+                    }
+                }
+            };
+        ballThread.start();  // Start the animation
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+    /** 
+     * Override the JPanel paintComponent method with our drawing of a ball 
      */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);    // Paint background
+        Graphics2D g2d= (Graphics2D) g;
+        // Draw the box's background
+        g2d.setColor(Color.BLACK);
+        g2d.fillRect(0, 0, getWidth(), getHeight());
+
+        // Draw the ball
+        ball.paint(g2d);
     }
 }
