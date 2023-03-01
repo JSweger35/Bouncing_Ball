@@ -1,33 +1,30 @@
-
+import javax.swing.*;
 /**
- * Write a description of class BouncingBallWindow here.
- *
- * @author (your name)
- * @version (a version number or a date)
+ * BouncingBallWindow is the top level of three that produce a window with
+ * an animated bouncing ball in it.
+ * 
+ * @author Jake Sweger
+ * @version 1
  */
-public class BouncingBallWindow
-{
-    // instance variables - replace the example below with your own
-    private int x;
+public class BouncingBallWindow extends JFrame {
+    public BouncingBallWindow() {  // Create window
+        setTitle("One Bouncing Ball");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    /**
-     * Constructor for objects of class BouncingBallWindow
-     */
-    public BouncingBallWindow()
-    {
-        // initialise instance variables
-        x = 0;
+        add(new BouncingBall());  // Add bouncing ball panel
+
+        pack();  // Set the window size
+        setLocationRelativeTo(null);  // Center the window in the display
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    public static void main(String[] args) {
+        // Run GUI in the Event Dispatcher Thread (EDT)
+        SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    // Set up main window (using Swing's Jframe)
+                    BouncingBallWindow bbw = new BouncingBallWindow();
+                    bbw.setVisible(true);
+                }
+            });
     }
 }
