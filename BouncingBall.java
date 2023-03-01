@@ -7,7 +7,7 @@ import javax.swing.*;
  */
 public class BouncingBall extends JPanel {
     private final Dimension SIZE = new Dimension(600,450); // Panel size
-    private final int UPDATE_RATE = 24; // Number of refreshes per second
+    private final int UPDATE_RATE = 60; // Number of refreshes per second
     private Ball ball; // The beautiful bouncing ball
     private Thread ballThread; // Animation thread
     
