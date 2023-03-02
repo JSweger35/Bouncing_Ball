@@ -6,12 +6,12 @@ import javax.swing.*;
  * @author Jake Sweger
  * @version 1
  */
-public class BouncingBallWindow extends JFrame {
-    public BouncingBallWindow() {  // Create window
-        setTitle("One Bouncing Ball");
+public class BouncingBallsWindow extends JFrame {
+    public BouncingBallsWindow() {  // Create window
+        setTitle("Ten Bouncing Ball");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        add(new BouncingBall());  // Add bouncing ball panel
+        add(new BouncingBalls());  // Add bouncing ball panel
 
         pack();  // Set the window size
         setLocationRelativeTo(null);  // Center the window in the display
@@ -22,7 +22,7 @@ public class BouncingBallWindow extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
                     // Set up main window (using Swing's Jframe)
-                    BouncingBallWindow bbw = new BouncingBallWindow();
+                    BouncingBallsWindow bbw = new BouncingBallsWindow();
                     bbw.setVisible(true);
                 }
             });
